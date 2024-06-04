@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Page</title>
+    <link href="../assets/establishment.css" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 576px;
+            border-radius: .75rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            grid-gap: .5rem;
+            font-size: 2rem;
+            color: var(--yellow);
+            margin-bottom: 2rem;
+        }
+        .rating .star {
+            cursor: pointer;
+        }
+        .rating .star.active {
+            opacity: 0;
+            animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+        }
+        @keyframes animate {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .rating .star:hover {
+            transform: scale(1.1);
+        }
+        textarea {
+            width: 100%;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: .5rem;
+            border: none;
+            outline: none;
+            resize: none;
+            margin-bottom: .5rem;
+        }
+        .btn-group {
+            display: flex;
+            grid-gap: .5rem;
+            align-items: center;
+        }
+        .btn-group .btn {
+            padding: .75rem 1rem;
+            border-radius: .5rem;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: .875rem;
+            font-weight: 500;
+        }
+        .btn-group .btn.submit {
+            background: var(--blue);
+            color: var(--white);
+        }
+        .btn-group .btn.submit:hover {
+            background: var(--blue-d-1);
+        }
+        .btn-group .btn.cancel {
+            background: var(--white);
+            color: var(--blue);
+        }
+        .btn-group .btn.cancel:hover {
+            background: var(--light);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="site-logo"><a href="/" class="logo replace">Resto Review</a></h1>
+        <nav class="main-nav">
+            <ul class="navitems">
+                <li><a href="discover.html">Discover</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+                <li>
+                    <form action="/search" method="GET">
+                        <label for="search-query" class="sr-only">Search</label>
+                        <input type="text" id="search-query" name="query" placeholder="Search..." />
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="restaurant-overview">
+            <div class="restaurant-header">
+                <div class="restaurant-poster">
+                    <img src="https://popeyes.ph/img/Online-Menu-2023-03.jpg" alt="Restaurant A Poster" />
+                </div>
+                <div class="restaurant-details">
+                    <h1>Restaurant A</h1>
+                    <div class="restaurant-tags">
+                        <span class="tag">Asian</span>
+                        <span class="tag">Fried Chicken</span>
+                        <span class="tag">Noodles</span>
+                    </div>
+                    <p class="restaurant-description">
+                        Restaurant A offers an unforgettable dining experience with a variety of Asian cuisine. 
+                        Our specialties include fried chicken and a wide selection of noodles. 
+                    </p>
+                    <p class="restaurant-address">
+                        <strong>Address:</strong> 123 Food Street, Gourmet City, Yummyland
+                    </p>
+                    <div class="restaurant-stats">
+                        <p><strong>People who ate here:</strong> 292,602</p>
+                        <p><strong>Likes:</strong> 113,853</p>
+                        <p><strong>Reviews:</strong> 12,345</p>
+                    </div>
+                    <button class="like-button">Like</button>
+                    <button class="submit-review-button">Submit Review</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <h2>Recent Reviews</h2>
+            <div class="review">
+                <div class="review-header">
+                    <img src="https://a.ltrbxd.com/resized/avatar/upload/1/6/1/9/8/9/7/shard/avtr-0-48-0-48-crop.jpg?v=c9b44f8d85" alt="Reviewer Avatar">
+                    <p><strong>Tyler</strong> rated it 4 stars</p>
+                </div>
+                <p>Great food and wonderful atmosphere. The fried chicken is a must-try!</p>
+                <button class="like-review-button">Like Review</button>
+            </div>
+            <div class="review">
+                <div class="review-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/LeBron_James_%2851959977144%29_%28cropped2%29.jpg/640px-LeBron_James_%2851959977144%29_%28cropped2%29.jpg" alt="Reviewer Avatar">
+                    <p><strong>Jez</strong> rated it 4.5 stars</p>
+                </div>
+                <p>Amazing variety of noodles. Highly recommend the spicy ramen!</p>
+                <button class="like-review-button">Like Review</button>
+            </div>
+        </section>
+
+        <section class="popular-reviews">
+            <h2>Popular Reviews</h2>
+            <div class="review">
+                <div class="review-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Jim_Carrey_2008.jpg/640px-Jim_Carrey_2008.jpg" alt="Reviewer Avatar">
+                    <p><strong>Darren Carver-Bals</strong> rated it 5 stars</p>
+                </div>
+                <p>Hands down the best fried chicken I've ever had. Will definitely come back!</p>
+                <button class="like-review-button">Like Review</button>
+            </div>
+            <!-- Add more reviews as needed -->
+        </section>
+
+        <section class="recommended-restaurants">
+            <h2>Recommended Restaurants</h2>
+            <div class="card-container">
+                <div class="card">
+                    <img src="https://www.jollibeefoods.com/cdn/shop/products/Family-Bucket-Meals-6pc-Bucket-2-Chickenwich-and-3-Tenders-4.jpg?v=1644347561&width=1080" alt="Restaurant B Dish" />
+                    <div class="card-content">
+                        <h3>Restaurant B</h3>
+                        <p>Experience the best dining.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://animoeats.com/static/img/dish3.jpg" alt="Restaurant C Dish" />
+                    <div class="card-content">
+                        <h3>Restaurant C</h3>
+                        <p>What our users are raving about.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+   
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="wrapper">
+                <h3>Submit Your Review</h3>
+                <form action="#">
+                    <div class="rating">
+                        <input type="number" name="rating" hidden>
+                        <i class='bx bx-star star' style="--i: 0;"></i>
+                        <i class='bx bx-star star' style="--i: 1;"></i>
+                        <i class='bx bx-star star' style="--i: 2;"></i>
+                        <i class='bx bx-star star' style="--i: 3;"></i>
+                        <i class='bx bx-star star' style="--i: 4;"></i>
+                    </div>
+                    <textarea name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                    <div class="btn-group">
+                        <button type="submit" class="btn submit">Submit</button>
+                        <button type="button" class="btn cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social">
+            <a href="https://facebook.com/animoeats"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWmwYccpGN_2SFl5JJMSaCdmCGmLyaKEwEVw&s" alt="Facebook" /></a>
+            <a href="https://twitter.com/animoeats"><img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter" /></a>
+            <a href="https://instagram.com/animoeats"><img src="https://cdn-icons-png.flaticon.com/512/4138/4138124.png" alt="Instagram" /></a>
+        </div>
+        <p>&copy; 2024 Animo Eats. All rights reserved.</p>
+    </footer>
+
+    <script>
+      
+        var modal = document.getElementById("reviewModal");
+
+       
+        var btn = document.querySelector(".submit-review-button");
+
+        
+        var span = document.querySelector(".close");
+
+        
+        var cancelBtn = document.querySelector(".btn.cancel");
+
+        
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+       
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        cancelBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+       
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        
+        const allStar = document.querySelectorAll('.rating .star');
+        const ratingValue = document.querySelector('.rating input');
+
+        allStar.forEach((item, idx) => {
+            item.addEventListener('click', function () {
+                let click = 0;
+                ratingValue.value = idx + 1;
+
+                allStar.forEach(i => {
+                    i.classList.replace('bxs-star', 'bx-star');
+                    i.classList.remove('active');
+                });
+                for (let i = 0; i < allStar.length; i++) {
+                    if (i <= idx) {
+                        allStar[i].classList.replace('bx-star', 'bxs-star');
+                        allStar[i].classList.add('active');
+                    } else {
+                        allStar[i].style.setProperty('--i', click);
+                        click++;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+header {
+  background-color: #2E8B57;
+  color: white;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  margin-left: 20px;
+}
+
+header nav ul li a {
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  color: #90EE90;
+}
+container {
+            max-width: 960px;
+            margin: 20px auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .list-group-item.active {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-default {
+            background-color: #f8f9fa;
+            border-color: #ced4da;
+        }
+
+        .btn-outline-primary {
+            color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .text-light {
+            color: #6c757d !important;
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
+        }
