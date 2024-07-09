@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - Food Review</title>
+    <link href="../assets/profile.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 class="site-logo"><a href="/" class="logo replace">Food Review</a></h1>
+        <nav class="main-nav">
+            <ul class="navitems">
+                <li><a href="/discover">Discover</a></li>
+                <% if (user) { %>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                <% } %>
+                <li>
+                    <form action="/search" method="GET">
+                        <input type="text" name="query" placeholder="Search..." />
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="profile">
+        <% if (user) { %>
+        <section class="profile-header">
+            <div class="profile-avatar">
+                <img src="<%= user.profilePictureUrl || '/img/default_avatar.jpg' %>" alt="Profile Avatar">
+            </div>
+            <div class="profile-info">
+                <h1><%= user.username %></h1> 
+                <p><%= user.givenName + " " + user.familyName || "" %></p>
+                <p><%= user.pronoun ? user.pronoun + '/' + user.pronoun.toLowerCase() + 's' : '' %></p>
+                <p><%= user.email %></p>
+                <p><%= user.bio || "Food Enthusiast" %></p>
+                <button class="edit-profile-btn" onclick="location.href='/edit-profile'">Edit Profile</button>
+              </div>
+              
+            
+        </section>
+
+        <section class="favorite-foods">
+            <h2>Favorite Food</h2>
+            <% if (user.favoriteFood) { %>
+                <p><%= user.favoriteFood %></p>
+            <% } else { %>
+                <p>No favorite food yet.</p>
+            <% } %>
+        </section>
+
+        <section class="profile-stats">
+            <div class="stat">
+                <strong><%= user.reviews && user.reviews.length ? user.reviews.length : 0 %></strong>
+                <span>Reviews</span>
+            </div>
+
+            <div class="stat">
+                <strong><%= user.favorites && user.favorites.length ? user.favorites.length : 0 %></strong>
+                <span>Favorites</span>
+            </div>
+            <div class="stat">
+                <strong><%= user.followers && user.followers.length ? user.followers.length : 0 %></strong>
+                <span>Followers</span>
+            </div>
+            <div class="stat">
+                <strong><%= user.following && user.following.length ? user.following.length : 0 %></strong>
+                <span>Following</span>
+            </div>
+        </section>
+
+        <% } else { %>
+        <p>Please log in to view your profile.</p>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Animo Eats. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

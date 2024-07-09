@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= restaurant ? restaurant.name : 'Restaurant Not Found' %> - Resto Review</title>
+    <link href="../assets/establishment.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="site-logo"><a href="/" class="logo replace">Resto Review</a></h1>
+        <nav class="main-nav">
+            <ul class="navitems">
+                <li><a href="/discover">Discover</a></li>
+                <% if (user) { %>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                <% } %>
+                <li>
+                    <form action="/search" method="GET">
+                        <input type="text" name="query" placeholder="Search..." />
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <% if (restaurant) { %>
+            <section class="restaurant-overview">
+                <div class="restaurant-header">
+                    <div class="restaurant-poster">
+                        <img src="<%= restaurant.images[0] || '/img/default_restaurant.jpg' %>" alt="<%= restaurant.name %> Poster" />
+                    </div>
+                    <div class="restaurant-details">
+                        <h1><%= restaurant.name %></h1>
+                        <div class="restaurant-tags">
+                            <% restaurant.tags.forEach(tag => { %>
+                                <span class="tag"><%= tag %></span>
+                            <% }); %>
+                        </div>
+                        <p class="restaurant-description"><%= restaurant.description %></p>
+                        <p class="restaurant-address">
+                            <strong>Address:</strong> <%= restaurant.address %>
+                        </p>
+                        <div class="restaurant-stats">
+                            <p><strong>Average Rating:</strong> <%= restaurant.averageRating.toFixed(1) %></p> 
+                            <p><strong>Reviews:</strong> <%= restaurant.reviews.length %></p> 
+                        </div>
+                        <button class="like-button">Like</button>
+                        <button class="submit-review-button" onclick="openModal()">Submit Review</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="reviews">
+                <h2>Reviews</h2>
+                <div id="reviews-container">
+                    <% if (restaurant.reviews && restaurant.reviews.length > 0) { %>
+                        <% restaurant.reviews.forEach(review => { %>
+                            <div class="review">
+                                <div class="review-actions">
+                                    <button class="reply-button" onclick="openReplyModal('<%= review._id %>')">Reply</button>
+                                </div>
+                                <div class="review-header">
+                                    <img src="<%= review.author.profilePictureUrl || '/img/default_avatar.jpg' %>" alt="Reviewer Avatar">
+                                    <p>
+                                        <strong><%= review.author.username %></strong> rated it
+                                        <%= review.rating %> stars 
+                                        <% if (user && review.author._id.toString() === user._id.toString()) { %>
+                                            <button class="edit-review-button" onclick="openEditReviewModal('<%= review._id %>', '<%= review.title %>', '<%= review.reviewText %>', '<%= review.rating %>')">Edit</button>
+                                            <button class="delete-review-button" onclick="deleteReview('<%= review._id %>')">Delete</button>
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <p><%= review.reviewText %></p>
+                                <div class="review-footer">
+                                    <button class="like-review-button" onclick="likeReview('<%= review._id %>')">Like (<span id="like-count-<%= review._id %>"><%= review.likes %></span>)</button>
+                                </div>
+                                <div class="review-replies" id="replies_<%= review._id %>">
+                                    <% if (review.replies && review.replies.length > 0) { %>
+                                        <% review.replies.forEach(reply => { %>
+                                            <div class="reply">
+                                                <p>
+                                                    <strong><%= reply.author.username %></strong> replied:
+                                                    <%= reply.text %>
+                                                </p>
+                                                <small><%= new Date(reply.timestamp).toLocaleString() %></small>
+                                            </div>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p class="no-replies">No replies yet.</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="no-reviews">No reviews yet.</p>
+                    <% } %>
+                </div>
+                <a href="/restaurants/<%= restaurant._id %>/reviews" class="view-all-reviews">View All Reviews</a>
+            </section>
+
+        <% } else { %>
+            <p>Restaurant not found.</p>
+        <% } %>
+    </main>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="wrapper">
+                <h3>Submit Your Review</h3>
+                <form id="reviewForm" action="/restaurants/<%= restaurant._id %>/reviews" method="POST">
+                    <div class="rating">
+                        <input type="number" name="rating" id="ratingInput" hidden>
+                        <i class='bx bx-star star' style="--i: 0;" onclick="rate(0)"></i>
+                        <i class='bx bx-star star' style="--i: 1;" onclick="rate(1)"></i>
+                        <i class='bx bx-star star' style="--i: 2;" onclick="rate(2)"></i>
+                        <i class='bx bx-star star' style="--i: 3;" onclick="rate(3)"></i>
+                        <i class='bx bx-star star' style="--i: 4;" onclick="rate(4)"></i>
+                    </div>
+                    <textarea name="title" cols="30" rows="1" placeholder="Title" required></textarea>
+                    <textarea name="reviewText" cols="30" rows="5" placeholder="Your opinion..." required></textarea>
+                    <div class="btn-group">
+                        <button type="submit" class="btn submit">Submit</button>
+                        <button type="button" class="btn cancel" onclick="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="editReviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditReviewModal()">&times;</span>
+            <div class="wrapper">
+                <h3>Edit Your Review</h3>
+                <form id="editReviewForm" method="POST">
+                    <div class="rating">
+                        <input type="number" name="rating" id="editRatingInput" hidden>
+                        <i class='bx bx-star star' style="--i: 0;" onclick="rateEdit(0)"></i>
+                        <i class='bx bx-star star' style="--i: 1;" onclick="rateEdit(1)"></i>
+                        <i class='bx bx-star star' style="--i: 2;" onclick="rateEdit(2)"></i>
+                        <i class='bx bx-star star' style="--i: 3;" onclick="rateEdit(3)"></i>
+                        <i class='bx bx-star star' style="--i: 4;" onclick="rateEdit(4)"></i>
+                    </div>
+                    <textarea name="title" id="editTitle" cols="30" rows="1" placeholder="Title" required></textarea>
+                    <textarea name="reviewText" id="editReviewText" cols="30" rows="5" placeholder="Your opinion..." required></textarea>
+                    <div class="btn-group">
+                        <button type="submit" class="btn submit">Update</button>
+                        <button type="button" class="btn cancel" onclick="closeEditReviewModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="replyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeReplyModal()">&times;</span>
+            <div class="wrapper">
+                <h3>Reply to Review</h3>
+                <form id="replyForm" action="/reviews/${reviewId}/reply" method="POST">
+                    <textarea name="replyText" cols="30" rows="3" placeholder="Your reply..." required></textarea>
+                    <div class="btn-group">
+                        <button type="submit" class="btn submit">Submit</button>
+                        <button type="button" class="btn cancel" onclick="closeReplyModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        </footer>
+
+    <script>
+        const reviewsContainer = document.getElementById('reviews-container');
+    </script>
+    <script>
+      
+        var modal = document.getElementById("reviewModal");
+        var btn = document.querySelector(".submit-review-button");
+        var span = document.querySelector(".close");
+        var cancelBtn = document.querySelector(".btn.cancel");
+        var editModal = document.getElementById("editReviewModal");
+        const editReviewForm = document.getElementById("editReviewForm");
+        
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+       
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        cancelBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+       
+
+        
+        const allStar = document.querySelectorAll('.rating .star');
+        const ratingValue = document.querySelector('.rating input');
+
+        allStar.forEach((item, idx) => {
+            item.addEventListener('click', function () {
+                let click = 0;
+                ratingValue.value = idx + 1;
+
+                allStar.forEach(i => {
+                    i.classList.replace('bxs-star', 'bx-star');
+                    i.classList.remove('active');
+                });
+                for (let i = 0; i < allStar.length; i++) {
+                    if (i <= idx) {
+                        allStar[i].classList.replace('bx-star', 'bxs-star');
+                        allStar[i].classList.add('active');
+                    } else {
+                        allStar[i].style.setProperty('--i', click);
+                        click++;
+                    }
+                }
+            });
+        });
+        
+    
+
+
+    </script>
+     <script>
+        var modal = document.getElementById("reviewModal");
+        var editModal = document.getElementById("editReviewModal");
+        var span = document.querySelector(".close");
+        var cancelBtn = document.querySelector(".btn.cancel");
+        
+        function openReplyModal(reviewId) {
+        const replyForm = document.getElementById("replyForm");
+        replyForm.action = `/reviews/${reviewId}/reply`;
+        replyModal.style.display = "block";
+    }
+
+    // Function to close reply modal
+    function closeReplyModal() {
+        replyModal.style.display = "none";
+    }
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+
+
+        function openEditReviewModal(reviewId, title, reviewText, rating) {
+        const editReviewForm = document.getElementById("editReviewForm");
+        editReviewForm.action = `/reviews/${reviewId}/edit`;
+        document.getElementById('editTitle').value = title;
+        document.getElementById('editReviewText').value = reviewText;
+        document.getElementById('editRatingInput').value = rating;
+
+        // Set the stars based on the current rating
+        const allEditStar = document.querySelectorAll('#editReviewModal .star');
+        allEditStar.forEach((star, idx) => {
+            if (idx < rating) {
+                star.classList.replace('bx-star', 'bxs-star');
+                star.classList.add('active');
+            } else {
+                star.classList.replace('bxs-star', 'bx-star');
+                star.classList.remove('active');
+            }
+        });
+
+        const editModal = document.getElementById("editReviewModal");
+        editModal.style.display = "block";
+    }
+
+        function closeEditReviewModal() {
+            editModal.style.display = "none";
+        }
+
+
+        function deleteReview(reviewId) {
+            fetch(`/reviews/${reviewId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                    location.reload(); // Reload the page to see the changes
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function rate(rating) {
+            document.getElementById('ratingInput').value = rating + 1;
+            const allStar = document.querySelectorAll('.rating .star');
+            allStar.forEach((star, idx) => {
+                if (idx <= rating) {
+                    star.classList.replace('bx-star', 'bxs-star');
+                    star.classList.add('active');
+                } else {
+                    star.classList.replace('bxs-star', 'bx-star');
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function rateEdit(rating) {
+            document.getElementById('editRatingInput').value = rating + 1;
+            const allEditStar = document.querySelectorAll('.rating .star');
+            allEditStar.forEach((star, idx) => {
+                if (idx <= rating) {
+                    star.classList.replace('bx-star', 'bxs-star');
+                    star.classList.add('active');
+                } else {
+                    star.classList.replace('bxs-star', 'bx-star');
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function likeReview(reviewId) {
+    fetch(`/reviews/${reviewId}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById(`like-count-${reviewId}`).innerText = data.likes;
+        } else if (data.error) {
+            alert(data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+window.onclick = function(event) {
+    if (event.target === modal) {
+        closeModal();
+    } else if (event.target === editModal) {
+        closeEditReviewModal();
+    } else if (event.target === replyModal) {
+        closeReplyModal();
+    }
+};
+
+
+    </script>
+</body>
+</html>

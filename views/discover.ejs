@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Resto Review - Discover</title>
+    <link href="../assets/discover.css" rel="stylesheet" /> 
+    <link href="/css/fontstyle.css" rel="stylesheet" media="screen, projection" />
+</head>
+<body>
+    <header>
+        <h1 class="site-logo"><a href="/" class="logo replace">Food Review</a></h1>
+        <nav class="main-nav">
+            <ul class="navitems">
+                <li><a href="/discover">Discover</a></li>
+                <% if (user) { %>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li> 
+                <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                <% } %> 
+                <% if (user && user.role === 'owner') { %>
+                    <li><a href="/add-establishment">Add Restaurant</a></li> 
+                <% } %>
+                <li>
+                    <form action="/search" method="GET">
+                        <input type="text" name="query" placeholder="Search..." />
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Discover Your Next Meal</h1>
+            <p>Explore the best dishes and restaurants around you. Share your experiences and follow food enthusiasts.</p>
+        </section>
+
+        <section class="discover">
+            <h2 class="section-heading">Discover</h2>
+            <div class="card-container">
+                <% if (restaurants.length > 0) { %>
+                    <% restaurants.forEach(restaurant => { %>
+                        <a href="/restaurants/<%= restaurant._id %>" class="card"> 
+                            <img src="<%= restaurant.images[0] || '/img/default_restaurant.jpg' %>" alt="<%= restaurant.name %>">
+                            <div class="card-content">
+                                <h3><%= restaurant.name %></h3>
+                                <p><%= restaurant.cuisine %></p>
+                            </div>
+                        </a>
+                    <% }); %>
+                <% } else { %>
+                    <p class="no-restaurants">No restaurants added yet.</p>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+      <div class="social">
+        <a href="https://facebook.com/animoeats"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWmwYccpGN_2SFl5JJMSaCdmCGmLyaKEwEVw&s" alt="Facebook" /></a>
+        <a href="https://twitter.com/animoeats"><img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter" /></a>
+        <a href="https://instagram.com/animoeats"><img src="https://cdn-icons-png.flaticon.com/512/4138/4138124.png" alt="Instagram" /></a>
+      </div>
+      <p>&copy; 2024 Animo Eats. All rights reserved.</p>
+       </footer>
+</body>
+</html>

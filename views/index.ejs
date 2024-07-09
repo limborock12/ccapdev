@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resto Review</title>
+    <link href="/assets/styles.css" rel="stylesheet" />
+    <link href="/css/fontstyle.css" rel="stylesheet" media="screen, projection" />
+  </head>
+  <body>
+    <header>
+      <h1 class="site-logo"><a href="/" class="logo replace">Resto review</a></h1>
+      <nav class="main-nav">
+        <ul class="navitems">
+            <li><a href="/discover">Discover</a></li>
+            <% if (user) { %>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li> 
+            <% } else { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            <% } %> 
+            <% if (user && user.role === 'owner') { %>
+                <li><a href="/add-establishment">Add Restaurant</a></li> 
+            <% } %>
+            <li>
+                <form action="/search" method="GET">
+                    <input type="text" name="query" placeholder="Search..." />
+                    <button type="submit">Search</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Discover Your Next Meal</h1>
+        <p>Explore the best dishes and restaurants around you. Share your experiences and follow food enthusiasts.</p>
+      </section>
+
+      <section class="browse-by">
+        <h3 class="section-heading mob-hide">Browse by</h3>
+        <ul class="bar-nav">
+          <li class="dropdown">
+            <div class="smenu-wrapper">
+              <div class="smenu">
+                <label>Browse by: Year <i class="ir s icon"></i></label>
+                <div class="dropdown-content">
+                  <a href="#">2022</a>
+                  <a href="#">2023</a>
+                  <a href="#">2024</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="smenu-wrapper">
+              <div class="smenu">
+                <label>Browse by: Rating <i class="ir s icon"></i></label>
+                <div class="dropdown-content">
+                  <a href="#">1 Star</a>
+                  <a href="#">2 Stars</a>
+                  <a href="#">3 Stars</a>
+                  <a href="#">4 Stars</a>
+                  <a href="#">5 Stars</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="highlights">
+        <div class="highlight">
+          <img src="https://cdn1.clickthecity.com/wp-content/uploads/2024/01/05154749/McDonalds-makes-saying-Libre-ko-na-easy-with-McSavers-Mix-Match.jpg" alt="Dish 1" />
+          <h2>Top Rated Dish</h2>
+          <p>Amazing flavors you can't miss.</p>
+        </div>
+        <div class="highlight">
+          <img src="https://www.jollibeefoods.com/cdn/shop/products/Family-Bucket-Meals-6pc-Bucket-2-Chickenwich-and-3-Tenders-4.jpg?v=1644347561&width=1080" alt="Dish 2" />
+          <h2>Featured Restaurant</h2>
+          <p>Experience the best dining.</p>
+        </div>
+        <div class="highlight">
+          <img src="https://imageio.forbes.com/specials-images/imageserve/5d77914da3159c0008a93d96/Wendy-s-breakfast-menu-/960x0.jpg?format=jpg&width=960" alt="Dish 3" />
+          <h2>Popular Review</h2>
+          <p>What our users are raving about.</p>
+        </div>
+      </section>
+
+      <section id="popular-reviews" class="section">
+        <h2 class="section-heading"><a href="/establishment">Popular reviews this week</a></h2>
+        <a href="/discover" class="all-link">More</a>
+        <ul class="poster-list film-list clear film-details-list no-title">
+          <li class="film-detail">
+            <div class="film-poster">
+              <img src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-660714144-1516227341.jpg" width="70" height="105" alt="Furiosa: A Mad Max Saga">
+              <a href="/establishment" class="frame">
+                <span class="overlay"></span>
+              </a>
+            </div>
+            <div class="film-detail-content">
+              <h2 class="headline-2"><a href="/establishment">Los pollos</a> <small class="metadata"><a href="/films/year/2024/">2024</a></small></h2>
+              <div class="attribution-block">
+                <a class="avatar">
+                  <img src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-660714144-1516227341.jpg" alt="tyler" width="24" height="24">
+                </a>
+                <p class="attribution">
+                  <strong class="name"><a href="/profile">tyler</a></strong>
+                  <span class="rating rated-8">★★★★</span>
+                </p>
+              </div>
+              <div class="body-text">
+                <p>Random review text 1</p>
+              </div>
+              <p class="like-link-target">
+                <span class="like-link">
+                  <a href="#" class="svg-action -like">Like review</a>&nbsp;<a href="/profile" class="count">1,234 likes</a>
+                </span>
+              </p>
+            </div>
+          </li>
+          <li class="film-detail">
+            <div class="film-poster">
+              <img src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-660714144-1516227341.jpg" width="70" height="105" alt="Furiosa: A Mad Max Saga">
+              <class="frame">
+                <span class="overlay"></span>
+              </a>
+            </div>
+            <div class="film-detail-content">
+              <h2 class="headline-2"><a href="/profile">Los pollos</a> <small class="metadata"><a href="/establishment">2024</a></small></h2>
+              <div class="attribution-block">
+                <a class="avatar">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/LeBron_James_%2851959977144%29_%28cropped2%29.jpg/640px-LeBron_James_%2851959977144%29_%28cropped2%29.jpg" alt="Jez" width="24" height="24">
+                </a>
+                <p class="attribution">
+                  <strong class="name"><a href="/profile">Jez</a></strong>
+                  <span class="rating rated-9">★★★★½</span>
+                </p>
+              </div>
+              <div class="body-text">
+                <p>Random review text 2</p>
+              </div>
+              <p class="like-link-target">
+                <span class="like-link">
+                  <a href="#" class="svg-action -like">Like review</a>&nbsp;<a href="/profile" class="count">2,345 likes</a>
+                </span>
+              </p>
+            </div>
+          </li>
+          <li class="film-detail">
+            <div class="film-poster">
+              <img src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-660714144-1516227341.jpg" width="70" height="105" alt="Furiosa: A Mad Max Saga">
+              <a href="/profile" class="frame">
+                <span class="overlay"></span>
+              </a>
+            </div>
+            <div class="film-detail-content">
+              <h2 class="headline-2"><a href="/profile">Los Pollos</a> <small class="metadata"><a href="/profile">2024</a></small></h2>
+              <div class="attribution-block">
+                <a class="avatar" href="/profile">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Jim_Carrey_2008.jpg/640px-Jim_Carrey_2008.jpg" alt="Darren Carver-Bals" width="24" height="24">
+                </a>
+                <p class="attribution">
+                  <strong class="name"><a href="/profile">Darren Carver-Bals</a></strong>
+                  <span class="rating rated-10">★★★★★</span>
+                </p>
+              </div>
+              <div class="body-text">
+                <p>Random review text 3</p>
+              </div>
+              <p class="like-link-target">
+                <span class="like-link">
+                  <a href="#" class="svg-action -like">Like review</a>&nbsp;<a href="/profile" class="count">3,456 likes</a>
+                </span>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div class="social">
+        <a href="https://facebook.com/animoeats"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWmwYccpGN_2SFl5JJMSaCdmCGmLyaKEwEVw&s" alt="Facebook" /></a>
+        <a href="https://twitter.com/animoeats"><img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter" /></a>
+        <a href="https://instagram.com/animoeats"><img src="https://cdn-icons-png.flaticon.com/512/4138/4138124.png" alt="Instagram" /></a>
+      </div>
+      <p>&copy; 2024 Animo Eats. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

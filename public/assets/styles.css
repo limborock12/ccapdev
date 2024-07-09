@@ -1,0 +1,617 @@
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  background-color: #2E8B57; 
+  color: white;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+header .logo img {
+  height: 50px;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  margin-left: 20px;
+}
+
+header nav ul li a {
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  color: #90EE90; 
+}
+
+
+.hero {
+  background-color: #98FB98; 
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 36px;
+  color: White; 
+}
+
+.hero p {
+  font-size: 18px;
+  margin: 10px 0 0;
+}
+
+
+.highlights {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+  background-color: white;
+}
+
+.highlight {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px;
+  max-width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.highlight:hover {
+  transform: translateY(-10px);
+}
+
+.highlight img {
+  width: 100%;
+  height: auto;
+}
+
+.highlight h2 {
+  margin: 10px;
+  font-size: 24px;
+  color: #2E8B57; 
+}
+
+.highlight p {
+  margin: 10px;
+  color: #666;
+}
+
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+footer .social {
+  margin-bottom: 10px;
+}
+
+footer .social a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+footer .social img {
+  width: 24px;
+  height: 24px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+
+.browse-by {
+  margin-top: 20px;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.mob-hide {
+  display: none;
+}
+
+
+.bar-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bar-nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+
+
+
+
+
+#popular-reviews {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.section-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+.poster {
+    margin-right: 20px;
+}
+
+.poster img {
+    border-radius: 5px;
+}
+
+
+.film-detail-content {
+    flex: 1;
+}
+
+.headline-2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.headline-2 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.headline-2 a:hover {
+    text-decoration: underline;
+}
+
+.metadata {
+    font-size: 14px;
+    color: #777;
+}
+
+.attribution-block {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.avatar img {
+    border-radius: 50%;
+}
+
+.attribution {
+    margin-left: 10px;
+}
+
+.name a {
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.name a:hover {
+    text-decoration: underline;
+}
+
+.rating {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.rating.-green {
+    color: #4caf50;
+}
+
+
+.body-text {
+    font-size: 16px;
+    color: #555;
+}
+
+.collapsible-text p {
+    margin: 0;
+}
+
+
+.like-link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.like-link .count {
+    color: #555;
+}
+
+
+h2.section-heading {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+a.all-link {
+  float: right;
+  text-decoration: none;
+  color: #007BFF;
+}
+
+a.all-link:hover {
+  text-decoration: underline;
+}
+
+
+.carousel-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-nav li {
+  display: inline;
+}
+
+.carousel-nav a {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.carousel-nav a:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-mask {
+  overflow: hidden;
+  width: 100%;
+}
+
+.poster-list {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.listitem {
+  list-style: none;
+  margin: 0 1em;
+}
+
+.poster {
+  position: relative;
+}
+
+.poster img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.frame {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.frame-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 0.5em;
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.frame:hover .overlay {
+  opacity: 1;
+}
+
+.restaurant-stats {
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-stats .stat {
+  font-size: 0.875em;
+}
+
+
+.section {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #0073e6;
+}
+
+.all-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.all-link:hover {
+    text-decoration: underline;
+}
+
+
+.poster-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.film-detail {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(33.333% - 20px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.film-poster {
+    position: relative;
+    width: 100%;
+}
+
+.film-poster img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.film-poster .frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.film-poster:hover .frame {
+    opacity: 1;
+}
+
+.overlay {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.film-detail-content {
+    padding: 10px 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.headline-2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.headline-2 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.headline-2 a:hover {
+    text-decoration: underline;
+}
+
+.metadata {
+    font-size: 14px;
+    color: #666;
+}
+
+.attribution-block {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.avatar {
+    margin-right: 10px;
+}
+
+.avatar img {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.attribution {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.name a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.name a:hover {
+    text-decoration: underline;
+}
+
+.rating {
+    margin-left: 5px;
+    color: #28a745;
+}
+
+.body-text {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.like-link-target {
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.like-link {
+    display: flex;
+    align-items: center;
+}
+
+.svg-action {
+    color: #0073e6;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.svg-action:hover {
+    text-decoration: underline;
+}
+
+.count {
+    color: #666;
+    text-decoration: none;
+}
+
+.count:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+    .film-detail {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .film-detail {
+        width: 100%;
+    }
+}
+
+.create-restaurant-button {
+  background-color: #00b300; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+

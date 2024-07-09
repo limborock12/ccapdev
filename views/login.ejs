@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Review - Sign In</title>
+    <link href="../assets/signin.css" rel="stylesheet">
+    <link rel="shortcut icon" sizes="196x196" href="http://127.0.0.1:3500/public/img/favicon.ico">
+</head>
+<body>
+ <a href="/" class="back-button">Back</a>
+    <div class="container">
+        <form action="/login" method="post">
+            <h1 style="color: #00b300;">Sign In to Restaurant Review</h1>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+            <input type="submit" value="Sign In">
+		    <input type="submit" value="Sign In As owner">
+        </form>
+    </div>
+</body>
+</html>
